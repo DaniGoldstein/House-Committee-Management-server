@@ -12,7 +12,7 @@ export default function EditingAdminMessages() {
        
     }
     return (
-        <div style={{width:"80%" ,height:"50%", border:"10px solid blue", marginTop:"100px"}}>
+        <div className='adminMessages' >
         {messages && Object.values(messages).map((message,key) =>
         <div>
           <div>{ message.title}</div>
