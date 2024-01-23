@@ -3,18 +3,27 @@ import style  from './style.module.css'
 import { Route, Routes } from 'react-router'
 import Messages from '../../pages/messages/Messages'
 import PaymentDetails from '../../pages/paymentDetails/PaymentDetails'
+import Neighbors from '../../pages/neighborsDetails/Neighbors'
 
 export default function Content() {
   return (<>
        
        
-    <div className={style.content}>content
-    <div  className="text-7xl  underline">tailwind</div>
-          <Routes>
+   
+
+          <div className={style.contentContainer}>
+      <div className={style.contentBox}>
+       
+        <p className={style.contentText}>
+        <Routes>
 <Route path='homePortal/messages' element={<Messages/>}>   </Route>
 <Route path='homePortal/paymentDetails' element={<PaymentDetails/> }></Route>
+<Route path='homePortal/neighborsDetails' element={<Neighbors/> }></Route>
           </Routes>
-        
-    </div></>
+          
+        </p>
+      </div>
+    </div>
+    </>
   )
 }

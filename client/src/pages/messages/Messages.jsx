@@ -10,7 +10,7 @@ export default function Messages() {
   return (
     <div>
        {messages && Object.values(messages).map((message,key) =>
-        <div>hdthdt
+        <div>
           <div className="">{ message.title}</div>
           <div>{message.date}</div> </div>)}
     </div>
