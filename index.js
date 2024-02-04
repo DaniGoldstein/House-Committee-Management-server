@@ -9,6 +9,7 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-app.use('/s',require('.//.router'));
+app.use('/neighbors', require('./neighbor/neighbor.router'));
+
 
 app.listen( process.env.PORT || 3535 )

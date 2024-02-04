@@ -54,7 +54,7 @@ const paymentItemizationSchema = new mongoose.Schema({
 });
 
 // Schema עבור שכן
-const Schema = new mongoose.Schema({
+const schema = new mongoose.Schema({
     userName: {
         type: String,
         require: true,
@@ -89,27 +89,37 @@ const Schema = new mongoose.Schema({
     }
 });
 
+// const buildingPasswordSchema = new mongoose.Schema({
+//     buildingPassword :{
+//         type: String,
+//          required: true,
+//         }
+// });
+
 // Schema עבור collection המכילה את כל השכנים
-const sCollectionSchema = new mongoose.Schema({
+const CollectionSchema = new mongoose.Schema({
     // _id: mongoose.Schema.Types.ObjectId,
     buildingPassword :{type: String, required: true},
+
     address: addressSchema,
-    s: [Schema],
+    neighbors: [schema],
 });
-const Model = mongoose.model('buildings',  sCollectionSchema);
+const Model = mongoose.model('buildings',  CollectionSchema);
+
+
 // Model.create({
     
-//     "buildingPassword":"3a",
+//     "buildingPassword":"4a",
 //     "address": {
 //         "city": "jerusalem",
 //         "st": "shmuel hanavi",
 //         "houseNumber": 55
 //     },
-//     "s": [
+//     "neighbors": [
 //         {
 //             "userName": "John",
-//             "fName": "avi",
-//             "lName": "cohen",
+//             "fName": "itzchak",
+//             "lName": "levi",
 //             "phone": "055-5575567",
 //             "password": "1234",
 //             "messages": [
@@ -169,7 +179,7 @@ const Model = mongoose.model('buildings',  sCollectionSchema);
 //     ]
 // })
 
-// // ייצוא ה schema כמודל
+// ייצוא ה schema כמודל
 
 
 module.exports = Model;

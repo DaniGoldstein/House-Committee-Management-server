@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const Service =require ('./.service')
-
+const service =require ('./neighbor.service')
 
 
 router.get('/' , async (req, res) => {
-
+    const password =req.headers.building_password;
+    console.log(password + "fromRouter");
     try {
-let result = await Service.getAllsDetails(req.headers)
+let result = await service.getNeighborsDetails(req.headers.building_password)
+
+
 res.send(result)
     }
     catch (err) {
