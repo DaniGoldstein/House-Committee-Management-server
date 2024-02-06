@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const URL_MONGO = "mongodb+srv://dg:0548463067@cluster0.h875juj.mongodb.net/homePortal"
+const URL_MONGO = process.env.MONGO_URL;
 
 
 async function connect() {
@@ -13,8 +13,10 @@ async function connect() {
         console.log("DB - Error : ", err)
     }
 }
+module.exports = { connect }
 
-// connect()
+
+//  connect()
 
 
 
@@ -211,4 +213,3 @@ async function connect() {
 // connect();
 
 
-module.exports = { connect }
