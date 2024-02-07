@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const URL_MONGO = process.env.MONGO_URL;
+const URL_MONGO = 'mongodb+srv://dg:0548463067@cluster0.h875juj.mongodb.net/homePortal'
 
 
 async function connect() {

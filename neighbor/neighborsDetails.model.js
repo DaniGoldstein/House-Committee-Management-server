@@ -6,23 +6,25 @@ const mongoose = require('mongoose');
 
 
 const addressSchema = new mongoose.Schema({
+    // required: true, unique: true,
     city: {
         type: String,
         required: true,
     },
     st: {
         type: String,
-       
+        required: true,
     },
     houseNumber: {
         type: Number,
         required: true
     },
-    date: {
-        type: Date,
-        default: Date.now
-    },
+  
 });
+
+// const reportSchema = new mongoose.Schema({
+//     type: File
+// })
 
 
 const messageSchema = new mongoose.Schema({
@@ -52,7 +54,7 @@ const paymentItemizationSchema = new mongoose.Schema({
 });
 
 // Schema עבור שכן
-const schema = new mongoose.Schema({
+const neighborSchema = new mongoose.Schema({
     userName: {
         type: String,
         require: true,
@@ -87,20 +89,15 @@ const schema = new mongoose.Schema({
     }
 });
 
-// const buildingPasswordSchema = new mongoose.Schema({
-//     buildingPassword :{
-//         type: String,
-//          required: true,
-//         }
-// });
+
 
 // Schema עבור collection המכילה את כל השכנים
 const CollectionSchema = new mongoose.Schema({
     // _id: mongoose.Schema.Types.ObjectId,
     buildingPassword :{type: String, required: true},
-
+    generalMessages : [messageSchema],
     address: addressSchema,
-    neighbors: [schema],
+    neighbors: [neighborSchema],
 });
 const Model = mongoose.model('buildings', CollectionSchema);
 
@@ -123,11 +120,11 @@ const User =await Model.create({
     },
     "neighbors": [
         {
-             "userName": "Jo",
+             "userName": "Johnqq",
             "fName": "itzchak",
             "lName": "levi",
             "phone": "055-5575567",
-            "password": "1234",
+            "password": "123",
             "messages": [
                 {
                     "title": "hello"
@@ -156,9 +153,9 @@ const User =await Model.create({
         {
             "fName": "avi",
             "lName": "cohen",
-            "userName": "Johnyyss",
+            "userName": "Johnyyssqqqq22",
             "phone": "055-5575567",
-            "password": "12345",
+            "password": "1234",
             "messages": [
                 {
                     "title": "hello"

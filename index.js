@@ -1,15 +1,19 @@
 const express = require('express')
-require('dotenv').config();
 const app = express();
 
-require('./dbConnect').connect();
+require('dotenv').config();
 
+const jwt =require('jsonwebtoken')
 const cors = require('cors');
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/neighborsDetails', require('./neighbor/neighbor.router'));
+require('./dbConnect').connect();
+
+
+
+app.use('/neighborsDetails', require('./neighbor/neighborsDetails.router'));
 
 
 app.listen( process.env.PORT || 3535 )
