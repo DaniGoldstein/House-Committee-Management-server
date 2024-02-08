@@ -1,16 +1,9 @@
-const Model = require('./neighborsDetails.model');
+const Model = require('./building.model');
 
 async function read(filter) {
   try {
     console.log(filter, "controler");
-    const building = await Model.find({
-      neighbors: {
-        $elemMatch: {
-          // userName: username,
-          password: "1234"
-        },
-      },
-    });;
+    const building = await Model.find(filter);
     console.log(building, "building");
     // {buildingPassword:0,address:0,id:0,
     //     s:{

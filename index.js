@@ -13,7 +13,7 @@ require('./dbConnect').connect();
 
 
 
-app.use('/neighborsDetails', require('./neighbor/neighborsDetails.router'));
+app.use('/building', require('./building/building.router'));
 
 
 app.listen( process.env.PORT || 3535 )
