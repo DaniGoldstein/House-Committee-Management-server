@@ -15,7 +15,7 @@ router.get('/neighborsDetails',require('../authToken.js'), async (req, res) => {
 
    
     try {
-        let result = await service.getNeighborsDetails({username});
+        let result = await service.getBuilding({username});
 
         res.send(result)
 

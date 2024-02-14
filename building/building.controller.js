@@ -1,16 +1,10 @@
 const Model = require('./building.model');
 
-async function read(filter) {
+async function readOne(filter) {
   try {
-    console.log(filter, "controler");
-    const building = await Model.find({
-      neighbors: {
-       $elemMatch: {
-        userName: filter.username
-       }
-      }
-     });
-    console.log(building, "building");
+    
+    const building = await Model.findOne(filter);
+   
     // {buildingPassword:0,address:0,id:0,
     //     s:{
     //         password:0,userName:0,messages:0,isActive:0,isResponsible:0,_id:0, paymentItemization:0
@@ -23,4 +17,4 @@ async function read(filter) {
   }
 }
 
-module.exports = { read }
+module.exports = { readOne }
