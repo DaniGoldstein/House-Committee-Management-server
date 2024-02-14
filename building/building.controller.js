@@ -3,7 +3,13 @@ const Model = require('./building.model');
 async function read(filter) {
   try {
     console.log(filter, "controler");
-    const building = await Model.find(filter);
+    const building = await Model.find({
+      neighbors: {
+       $elemMatch: {
+        userName: filter.username
+       }
+      }
+     });
     console.log(building, "building");
     // {buildingPassword:0,address:0,id:0,
     //     s:{

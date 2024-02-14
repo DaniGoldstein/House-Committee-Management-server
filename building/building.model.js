@@ -187,7 +187,7 @@ async function create() {
     } catch (err) { console.log(err.message) };
 }
 
-create()
+// create()
 
 // ייצוא ה schema כמודל
 

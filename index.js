@@ -12,7 +12,7 @@ app.use(express.json());
 require('./dbConnect').connect();
 
 
-
+app.use('/login',require('./login.router'))
 app.use('/building', require('./building/building.router'));
 
 
