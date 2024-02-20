@@ -5,7 +5,7 @@ function authToken (req,res,next){
     const authToken = req.headers.authtoken;
    
     const token = authToken && authToken.split(' ')[1];
-    console.log(token);
+    console.log(token,"token");
     
     if (token==null) return res.sendStatus(401);
     jwt.verify(token,process.env.TOKEN_SECRET,(err,user)=>{
