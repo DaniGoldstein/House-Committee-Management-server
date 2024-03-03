@@ -31,7 +31,8 @@ const messageSchema = new mongoose.Schema({
     title: { type: String },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        get: (val) => val ? val.toISOString().split('T')[0] : null
     },
 
 
@@ -121,7 +122,7 @@ async function create() {
             },
             "neighbors": [
                 {
-                    "userName": "danielos",
+                    "userName": "beny",
                     "fName": "itzchak",
                     "lName": "levi",
                     "phone": "055-5575567",
@@ -154,7 +155,7 @@ async function create() {
                 {
                     "fName": "דניאל",
                     "lName": "גולדשטיין",
-                    "userName": "mosheq",
+                    "userName": "shif",
                     "phone": "055-5575567",
                     "email": "danigol054@gmail.com",
                     "password": "1234",
@@ -187,7 +188,7 @@ async function create() {
     } catch (err) { console.log(err.message) };
 }
 
-// create()
+//  create()
 
 // ייצוא ה schema כמודל
 

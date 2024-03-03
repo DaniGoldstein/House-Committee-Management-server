@@ -1,10 +1,11 @@
 const controller = require("./building.controller")
 
-async function getBuilding(filter) {
+async function getBuilding(username) {
+    console.log(username, "sevice")
     const building = await controller.readOne({
         neighbors: {
             $elemMatch: {
-                userName: filter.username
+                userName: username
             }
         }
     });
@@ -42,6 +43,7 @@ function getNeighborsMessages(neighbors) {
     neighbors.forEach((neighbor) => {
         if (neighbor.isActive) {
             for (let message of neighbor.messages) {
+                console.log(typeof(messageDate),"message");
                 let messageObj = {
                     name: neighbor.fName + " " + neighbor.lName,
                     title: message.title,
@@ -58,6 +60,24 @@ function getNeighborsMessages(neighbors) {
 }
 
 
+async function addNeighborMessage(username, message) {
+
+    const newMessage = { title: message }
+    let building = await controller.readOne({
+        neighbors: {
+            $elemMatch: {
+                userName: username
+            }
+        }
+    });
+
+    let userMessages;
+    building.neighbors.forEach((neighbor) => { neighbor.userName == username ? userMessages = neighbor.messages : null });
+    userMessages.push(newMessage);
+    await building.save();
+
+    return userMessages;
+}
 
 
 
@@ -67,4 +87,11 @@ function getNeighborsMessages(neighbors) {
 
 
 
-module.exports = { getBuilding }
+
+
+
+
+
+
+
+module.exports = { getBuilding, addNeighborMessage }
