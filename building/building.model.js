@@ -67,6 +67,7 @@ const neighborSchema = new mongoose.Schema({
     },
     lName: {
         type: String,
+        minlength:4,
         required: true
     },
     phone: {
@@ -74,6 +75,7 @@ const neighborSchema = new mongoose.Schema({
     },
     email: {
          type: String },
+
     password: {
         type: String,
         required: true
