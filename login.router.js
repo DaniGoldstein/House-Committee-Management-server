@@ -7,12 +7,14 @@ const Model = require('./building/building.model');
 router.post('/', auth, async (req, res) => {
 
     const username = { username: req.headers.username };
-    console.log(username, "username");
+    
     const accessToken = jwt.sign(username, process.env.TOKEN_SECRET);
-    res.json({ accessToken: accessToken });
+   
+    res.json({ accessToken: accessToken, });
 })
 
 async function auth(req, res, next) {
+    console.log(req.headers);
     const authorizedUser = await Model.findOne({
         neighbors: {
             $elemMatch: {
@@ -22,7 +24,7 @@ async function auth(req, res, next) {
         }
     });
     console.log(authorizedUser, "fromLogin");
-    if (!authorizedUser) { return res.status(404).json({ message: 'User not found' }); }
+    if (!authorizedUser) { return res.status(404).send("User not found"); }
     next()
 }
 

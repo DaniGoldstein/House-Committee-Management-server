@@ -1,7 +1,7 @@
 const controller = require("./building.controller")
 
 async function getBuilding(username) {
-    console.log(username, "sevice")
+    
     const building = await controller.readOne({
         neighbors: {
             $elemMatch: {
@@ -14,7 +14,7 @@ async function getBuilding(username) {
     const address = building.address;
     const generalMessages = building.generalMessages;
     const neighborsMessages = getNeighborsMessages(building.neighbors)
-    console.log(address);
+    
     return { neighbors, address, generalMessages, neighborsMessages };
 
 }
