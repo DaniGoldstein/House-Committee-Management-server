@@ -29,29 +29,29 @@ router.post('/neighborMessage', authToken, async (req, res) => {
         res.send(result);
     }
     catch (err) {
+        
         res.status(err?.code ?? 404).send(err?.message)
     };
 
 })
-// router.get('/neighborsMessages',async (req, res) => {
-//     const {password,username} = req.headers;
-//     try{
-//     let result = await service.getNeighborsMessages({password,username});
-//     res.send(result)}
-//     catch(err){
-//         res.status(err?.code ?? 404).send(err?.message)
-//     }
+
+router.delete('/deleteMessages/:username', authToken, async (req, res) => {
+    const deletesArray = req.body.messagesId;
+    console.log(deletesArray);
+    try {
+        let result = await service.deleteMessages(deletesArray, req.username);
+    }
+    catch (err) { res.status(err?.code ?? 404).send(err?.message) }
+    res.send("1234");
+})
+
+
+// router.get('/neighborMessages',authToken, async (req, res) => {
+//     let result = await service.getNeighborMessages(req.username)
+// console.log(req.username);
+// res.send()
+
 // })
-
-
-// router.get('/neighborsMessages',async (req, res) => {
-
-//     try {
-//         let result = await service.getMainMessages
-//     }
-//     catch(err){}
-// })
-
 
 
 

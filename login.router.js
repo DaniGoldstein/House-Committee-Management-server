@@ -14,7 +14,6 @@ router.post('/', auth, async (req, res) => {
 })
 
 async function auth(req, res, next) {
-    console.log(req.headers);
     const authorizedUser = await Model.findOne({
         neighbors: {
             $elemMatch: {
@@ -23,7 +22,7 @@ async function auth(req, res, next) {
             },
         }
     });
-    console.log(authorizedUser, "fromLogin");
+     console.log(authorizedUser, "fromLogin");
     if (!authorizedUser) { return res.status(404).send("User not found"); }
     next()
 }

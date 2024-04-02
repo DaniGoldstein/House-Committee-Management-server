@@ -13,7 +13,7 @@ require('./dbConnect').connect();
 
 
 app.use('/login',require('./login.router'));
-app.use('/building', require('./building/building.router'));
+app.use('/homePortal', require('./building/building.router'));
 
 
 app.listen( process.env.PORT || 3535 );

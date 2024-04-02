@@ -12,8 +12,13 @@ async function readOne(filter) {
 }
 
 async function updateOne(filter){
-  const update = Model.updateOne(filter);
+  const update =await Model.updateOne(filter);
   return update;
 }
 
-module.exports = { readOne,updateOne}
+
+async function deleteOne(filter) {
+  const result = await Model.deleteOne(filter);
+  return result;
+}
+module.exports = { readOne,updateOne,deleteOne}

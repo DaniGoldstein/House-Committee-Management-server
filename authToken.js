@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 
 
 function authToken (req,res,next){
-    
+    console.log("111111");
     const authToken = req.headers.authtoken;
-    console.log(authToken);
+    console.log(authToken); 
     const token = authToken && authToken.split(' ')[1];
     console.log(token,"token");
     

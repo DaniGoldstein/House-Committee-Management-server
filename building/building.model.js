@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 
 const addressSchema = new mongoose.Schema({
-    // required: true, unique: true,
+   
     city: {
         type: String,
         required: true,
@@ -20,11 +20,9 @@ const addressSchema = new mongoose.Schema({
         required: true
     },
 
-});
+}).index({ city: 1, st: 1, houseNumber: 1 }, { unique: true });
 
-// const reportSchema = new mongoose.Schema({
-//     type: File
-// })
+
 
 
 const messageSchema = new mongoose.Schema({
@@ -120,11 +118,11 @@ async function create() {
             "address": {
                 "city": "bneyBrack",
                 "st": "shmuel hanavi",
-                "houseNumber": 55
+                "houseNumber": 56
             },
             "neighbors": [
                 {
-                    "userName": "beny",
+                    "userName": "benedryy",
                     "fName": "itzchak",
                     "lName": "levi",
                     "phone": "055-5575567",
@@ -156,8 +154,8 @@ async function create() {
 
                 {
                     "fName": "דניאל",
-                    "lName": "גולדשטיין",
-                    "userName": "shif",
+                    "lName": "גולדטיין",
+                    "userName": "serhidf",
                     "phone": "055-5575567",
                     "email": "danigol054@gmail.com",
                     "password": "1234",
@@ -190,7 +188,7 @@ async function create() {
     } catch (err) { console.log(err.message) };
 }
 
-//  create()
+  create()
 
 // ייצוא ה schema כמודל
 
