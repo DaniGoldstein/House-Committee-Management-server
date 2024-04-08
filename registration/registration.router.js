@@ -1,10 +1,11 @@
-
+const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const Model = require('./building/building.model');
+
+const Model = require('../building/building.model');
 
 
-router.post('/', auth, async (req, res) => {
+router.post('/login', auth, async (req, res) => {
 
     const username = { username: req.headers.username };
     
