@@ -1,32 +1,47 @@
 const express = require('express');
 const router = express.Router();
+const service = require('./registration.service')
 const jwt = require('jsonwebtoken');
 
-const Model = require('../building/building.model');
+const controller = require('../DB/controller');
 
 
-router.post('/login', auth, async (req, res) => {
+router.post('/login', async (req, res) => {
 
-    const username = { username: req.headers.username };
-    
-    const accessToken = jwt.sign(username, process.env.TOKEN_SECRET);
-   
-    res.json({ accessToken: accessToken, });
+    const { username, password } = req.headers;
+
+    try {
+        const response = await service.login(username, password);
+        res.json(response);
+    }
+    catch (err) {
+        res.status(err?.code ?? 400).send(err?.msg)
+    }
+
 })
 
-async function auth(req, res, next) {
-    const authorizedUser = await Model.findOne({
-        neighbors: {
-            $elemMatch: {
-                userName: req.headers.username,
-                password: req.headers.password
-            },
-        }
-    });
-     console.log(authorizedUser, "fromLogin");
-    if (!authorizedUser) { return res.status(404).send("User not found"); }
-    next()
-}
+router.post('/UserRegistration', async (req, res) => {
+    console.log(req.body);
+    try {
+        const response = await service.UserRegistration(req.body)
+        res.sendStatus(201)
+    }
+    catch (err) { res.status(err?.code ?? 400).send(err?.msg) }
+});
+
+
+
+router.post('/BuildingRegistration', async (req, res) => {
+
+    console.log(req.body);
+    try {
+        const newBuilding = await service.BuildingRegistration(req.body);
+        res.sendStatus(201)
+    }
+    catch (err) {
+        res.sendStatus(err?.code ?? 400)
+    }
+})
 
 
 

@@ -20,7 +20,8 @@ const addressSchema = new mongoose.Schema({
         required: true
     },
 
-}).index({ city: 1, st: 1, houseNumber: 1 }, { unique: true });
+});
+// .index({ city: 1, st: 1, houseNumber: 1 }, { unique: true });
 
 
 
@@ -36,7 +37,6 @@ const messageSchema = new mongoose.Schema({
 
 });
 
-// Schema עבור תשלומים
 const paymentItemizationSchema = new mongoose.Schema({
     paymentType: {
         type: String,
@@ -56,8 +56,10 @@ const paymentItemizationSchema = new mongoose.Schema({
 const neighborSchema = new mongoose.Schema({
     userName: {
         type: String,
-        require: true,
+        required: true,
         unique: true
+     
+       
     },
     fName: {
         type: String,
@@ -65,7 +67,7 @@ const neighborSchema = new mongoose.Schema({
     },
     lName: {
         type: String,
-        minlength:4,
+        
         required: true
     },
     phone: {
@@ -76,6 +78,7 @@ const neighborSchema = new mongoose.Schema({
 
     password: {
         type: String,
+        minlength:4,
         required: true
     },
     messages: [messageSchema],
@@ -90,11 +93,12 @@ const neighborSchema = new mongoose.Schema({
         required: true,
         default: false
     }
+    
 });
 
 
 
-// Schema עבור collection המכילה את כל השכנים
+
 const CollectionSchema = new mongoose.Schema({
     // _id: mongoose.Schema.Types.ObjectId,
     buildingPassword: { type: String, required: true },
@@ -122,11 +126,11 @@ async function create() {
             },
             "neighbors": [
                 {
-                    "userName": "benedryy",
+                    "userName": "benedדדyyq",
                     "fName": "itzchak",
                     "lName": "levi",
                     "phone": "055-5575567",
-                    "password": "123",
+                    "password": "1231",
                     "messages": [
                         {
                             "title": "hello"
@@ -155,7 +159,7 @@ async function create() {
                 {
                     "fName": "דניאל",
                     "lName": "גולדטיין",
-                    "userName": "serhidf",
+                    "userName": "benedryyq",
                     "phone": "055-5575567",
                     "email": "danigol054@gmail.com",
                     "password": "1234",
@@ -188,9 +192,9 @@ async function create() {
     } catch (err) { console.log(err.message) };
 }
 
-  create()
+//   create()
 
-// ייצוא ה schema כמודל
+
 
 
 module.exports = Model;

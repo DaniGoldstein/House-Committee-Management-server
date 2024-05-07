@@ -2,15 +2,16 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken')
 const authToken = require('../authToken.js')
-const service = require('./building.service')
+const service = require('./building.service.js')
 
 
 
 router.get('/neighborsDetails', authToken, async (req, res) => {
-
     const { username } = req;
+    console.log(username);
     try {
-        let result = await service.getBuilding(username);
+        let result = await service.getBuilding(username,res);
+        
         res.send(result)
     }
 

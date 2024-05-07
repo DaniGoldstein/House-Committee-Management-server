@@ -1,4 +1,4 @@
-const Model = require('./building.model');
+const Model = require('./model');
 
 async function readOne(filter) {
   try {

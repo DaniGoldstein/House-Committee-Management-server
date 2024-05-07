@@ -1,7 +1,7 @@
-const { response } = require("express");
-const controller = require("./building.controller")
 
-async function getBuilding(username) {
+const controller = require("../DB/controller")
+
+async function  getBuilding(username) {
 
     const building = await controller.readOne({
         neighbors: {
@@ -10,6 +10,8 @@ async function getBuilding(username) {
             }
         }
     });
+
+    if (!building) throw { code: 404, message: "building not found" }
 
     const neighbors = getNeighborsDetails(building.neighbors);
     const address = building.address;
@@ -103,21 +105,17 @@ async function deleteMessages(deleteMessagesArray, username) {
             }
         }
     });
-   
+
     building.neighbors.forEach((neighbor) => {
         if (neighbor.userName === username) {
             deleteMessagesArray.forEach((messageId) => {
-            neighbor.messages = neighbor.messages.filter((message) => message._id != messageId);
+                neighbor.messages = neighbor.messages.filter((message) => message._id != messageId);
 
-            }); 
+            });
         }
     })
     building.save();
 
-    // building.neighbors.forEach((neighbor) => { neighbor.userName == username ? userMessages = neighbor.messages : null });
-    // userMessages = userMessages.filter((message) => !deleteMessagesArray.includes(message._id));
-    // console.log(userMessages);
-    // await building.save();
 }
 
 

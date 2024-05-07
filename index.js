@@ -9,7 +9,7 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-require('./dbConnect').connect();
+require('./DB/dbConnect').connect();
 
 
 // app.use('/login',require('./registration/registration.router.js/login.router'));
