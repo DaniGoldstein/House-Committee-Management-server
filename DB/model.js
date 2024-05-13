@@ -91,7 +91,7 @@ const neighborSchema = new mongoose.Schema({
     isResponsible: {
         type: Boolean,
         required: true,
-        default: false
+        default:false
     }
     
 });
@@ -114,83 +114,83 @@ const Model = mongoose.model('buildings', CollectionSchema);
 
 
 
-async function create() {
-    try {
-        const User = await Model.create({
+// async function create() {
+//     try {
+//         const User = await Model.create({
 
-            "buildingPassword": "5a",
-            "address": {
-                "city": "bneyBrack",
-                "st": "shmuel hanavi",
-                "houseNumber": 56
-            },
-            "neighbors": [
-                {
-                    "userName": "benedדדyyq",
-                    "fName": "itzchak",
-                    "lName": "levi",
-                    "phone": "055-5575567",
-                    "password": "1231",
-                    "messages": [
-                        {
-                            "title": "hello"
+//             "buildingPassword": "5a",
+//             "address": {
+//                 "city": "bneyBrack",
+//                 "st": "shmuel hanavi",
+//                 "houseNumber": 56
+//             },
+//             "neighbors": [
+//                 {
+//                     "userName": "benedדדyyq",
+//                     "fName": "itzchak",
+//                     "lName": "levi",
+//                     "phone": "055-5575567",
+//                     "password": "1231",
+//                     "messages": [
+//                         {
+//                             "title": "hello"
 
-                        },
-                        {
-                            "title": "byby"
+//                         },
+//                         {
+//                             "title": "byby"
 
-                        }
-                    ],
-                    "payment_itemization": [
-                        // {
-                        //     "paymentType": "monthly",
-                        //     "sum" :50
+//                         }
+//                     ],
+//                     "payment_itemization": [
+//                         // {
+//                         //     "paymentType": "monthly",
+//                         //     "sum" :50
 
-                        // },
-                        // {
-                        //     "paymentType": "fix",
-                        //     "sum" :35
-                        // }
-                    ],
-                    "isActive": true,
-                    "isResponsible": true
-                },
+//                         // },
+//                         // {
+//                         //     "paymentType": "fix",
+//                         //     "sum" :35
+//                         // }
+//                     ],
+//                     "isActive": true,
+//                     "isResponsible": true
+//                 },
 
-                {
-                    "fName": "דניאל",
-                    "lName": "גולדטיין",
-                    "userName": "benedryyq",
-                    "phone": "055-5575567",
-                    "email": "danigol054@gmail.com",
-                    "password": "1234",
-                    "messages": [
-                        {
-                            "title": "hello"
+//                 {
+//                     "fName": "דניאל",
+//                     "lName": "גולדטיין",
+//                     "userName": "benedryyq",
+//                     "phone": "055-5575567",
+//                     "email": "danigol054@gmail.com",
+//                     "password": "1234",
+//                     "messages": [
+//                         {
+//                             "title": "hello"
 
-                        },
-                        {
-                            "title": "byby"
+//                         },
+//                         {
+//                             "title": "byby"
 
-                        }
-                    ],
-                    "payment_itemization": [
-                        {
-                            "paymentType": "monthly",
-                            "sum": 50
+//                         }
+//                     ],
+//                     "payment_itemization": [
+//                         {
+//                             "paymentType": "monthly",
+//                             "sum": 50
 
-                        },
-                        {
-                            "paymentType": "fix",
-                            "sum": 35
-                        }
-                    ],
-                    "isActive": true,
-                    "isResponsible": true
-                }
-            ]
-        })
-    } catch (err) { console.log(err.message) };
-}
+//                         },
+//                         {
+//                             "paymentType": "fix",
+//                             "sum": 35
+//                         }
+//                     ],
+//                     "isActive": true,
+//                     "isResponsible": true
+//                 }
+//             ]
+//         })
+//     } catch (err) { console.log(err.message) };
+// }
 
 //   create()
 

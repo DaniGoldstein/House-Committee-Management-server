@@ -39,7 +39,7 @@ router.post('/BuildingRegistration', async (req, res) => {
         res.sendStatus(201)
     }
     catch (err) {
-        res.sendStatus(err?.code ?? 400)
+        res.sendStatus(err?.code ?? 400,err?.msg)
     }
 })
 
