@@ -3,9 +3,19 @@ const jwt = require('jsonwebtoken');
 const controller = require('../DB/controller');
 
 
-async function login(username, password) {
+async function userLogin(username, password) {
 
-    const authorizedUser = await auth(username, password);
+    const authorizedUser = await UserAuth(username, password);
+console.log(username, "username");
+    const accessToken = jwt.sign(username, process.env.TOKEN_SECRET);
+    return { accessToken: accessToken };
+
+
+}
+
+async function adminLogin(username, password) {
+
+    const authorizedUser = await AdminAuth(username, password,true);
 
     const accessToken = jwt.sign(username, process.env.TOKEN_SECRET);
     return { accessToken: accessToken };
@@ -14,18 +24,36 @@ async function login(username, password) {
 }
 
 
-async function auth(userName, password) {
+async function UserAuth(userName, password) {
+    
     const authorizedUser = await controller.readOne({
         neighbors: {
             $elemMatch: {
                 userName: userName,
-                password: password
+                password: password,
+                
             },
         }
     });
     console.log(authorizedUser, "fromLogin");
 
-    if (!authorizedUser) throw { code: 404 }
+    if (!authorizedUser) {console.log("not found"); throw { code:404 }}
+}
+
+async function AdminAuth(userName, password, permission) {
+    console.log(permission);
+    const authorizedUser = await controller.readOne({
+        neighbors: {
+            $elemMatch: {
+                userName: userName,
+                password: password,
+                isResponsible: permission
+            },
+        }
+    });
+    console.log(authorizedUser, "fromLogin");
+
+    if (!authorizedUser) throw { code: permission ? 403 : 404 }
 }
 
 
@@ -76,7 +104,7 @@ async function UserRegistration(userDetails) {
             phone: phone,
             email: email,
             password: password,
-            isResponsible:!firstUser //בודק אם הוא המשתמש הראשון מגדיר אותו כמנהל
+            isResponsible:!firstUser //בודק אם הוא המשתמש הראשון מגדיר אותו כמנה
         }
         building.neighbors.push(nweNeighbor);
         building.save();
@@ -117,4 +145,4 @@ async function BuildingRegistration(buildingDetails) {
 
 
 
-module.exports = { login, UserRegistration, BuildingRegistration } 
+module.exports = { userLogin,adminLogin, UserRegistration, BuildingRegistration } 
