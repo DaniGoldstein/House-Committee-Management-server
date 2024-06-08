@@ -101,7 +101,7 @@ const neighborSchema = new mongoose.Schema({
 
 const CollectionSchema = new mongoose.Schema({
     // _id: mongoose.Schema.Types.ObjectId,
-    buildingPassword: { type: String, required: true },
+    buildingPassword: { type: String,minlength: 4, required: true },
     generalMessages: [messageSchema],
     address: addressSchema,
     neighbors: [neighborSchema],

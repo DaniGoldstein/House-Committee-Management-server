@@ -38,14 +38,14 @@ router.post('/UserRegistration', async (req, res) => {
         const response = await service.UserRegistration(req.body)
         res.sendStatus(201)
     }
-    catch (err) { res.status(err?.code ?? 400).send(err?.msg) }
+    catch (err) {console.log("inUserRegistCatch"); res.status(err?.code ?? 400).send(err?.msg) }
 });
 
 
 
 router.post('/BuildingRegistration', async (req, res) => {
 
-    console.log(req.body);
+    console.log(req.body,"from BuildingRegistration");
     try {
         const newBuilding = await service.BuildingRegistration(req.body);
         res.sendStatus(201)

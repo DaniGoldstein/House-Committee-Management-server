@@ -70,8 +70,9 @@ async function UserRegistration(userDetails) {
         houseNumber,
         buildingPassword } = userDetails
 
-    const building = await controller.readOne(
+        
 
+    const building = await controller.readOne(
 
 
         {
@@ -79,8 +80,11 @@ async function UserRegistration(userDetails) {
             "address.st": street,
             "address.houseNumber": houseNumber,
             buildingPassword: buildingPassword
+         
         })
-    if (!building) throw { code: 404, msg: 'building not found' };
+
+
+    if (!building){console.log("building not found"); throw { code: 404, msg: 'building not found' }}
 
 
     else {
