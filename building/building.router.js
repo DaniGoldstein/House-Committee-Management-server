@@ -24,10 +24,24 @@ router.get('/neighborsDetails', authToken, async (req, res) => {
 
 router.post('/neighborMessage', authToken, async (req, res) => {
     const { title } = req.body;
-    console.log(req.username, title, "service");
+    console.log(req.username, title, "service1234");
     try {
         let result = await service.addNeighborMessage(req.username, title);
         res.send(result);
+    }
+    catch (err) {
+        
+        res.status(err?.code ?? 404).send(err?.message)
+    };
+
+})
+
+router.post('/adminNewMessage', authToken, async (req, res) => {
+    const { title } = req.body;
+    console.log(req.username, title, "serviceAdmin");
+    try {
+        await service.addAdminMessage(req.username, title);
+        res.send();
     }
     catch (err) {
         

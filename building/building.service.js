@@ -1,7 +1,7 @@
 
 const controller = require("../DB/controller")
 
-async function  getBuilding(username) {
+async function getBuilding(username) {
 
     const building = await controller.readOne({
         neighbors: {
@@ -96,6 +96,34 @@ async function addNeighborMessage(username, message) {
     return userMessages;
 }
 
+
+async function addAdminMessage(username, message) {
+
+let newMessage = { title: message}
+
+    const building = await controller.readOne({
+        neighbors: {
+            $elemMatch: {
+                userName: username
+            }
+        }
+    })
+
+    console.log(building.generalMessages);
+    let adminUser;
+    building.neighbors.forEach((neighbor) => {
+        neighbor.userName == username ? adminUser = neighbor : null;
+    })
+
+    adminUser.isResponsible ? console.log(building.generalMessages) : console.log("false");
+    if (!adminUser.isResponsible) throw { code: 401, message: "not Administrators" }
+    else { building.generalMessages.push(newMessage); }
+    console.log(building.generalMessages);
+    building.save();
+
+
+}
+
 async function deleteMessages(deleteMessagesArray, username) {
     ;
     const building = await controller.readOne({
@@ -133,4 +161,4 @@ async function deleteMessages(deleteMessagesArray, username) {
 
 
 
-module.exports = { getBuilding, addNeighborMessage, deleteMessages }
+module.exports = { getBuilding, addNeighborMessage, deleteMessages, addAdminMessage }
