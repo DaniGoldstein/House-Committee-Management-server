@@ -1,7 +1,7 @@
 
 const controller = require("../DB/controller")
 
-async function  getBuilding(username) {
+async function getBuilding(username) {
 
     const building = await controller.readOne({
         neighbors: {
@@ -96,41 +96,65 @@ async function addNeighborMessage(username, message) {
     return userMessages;
 }
 
-async function deleteMessages(deleteMessagesArray, username) {
-    ;
-    const building = await controller.readOne({
+
+async function addAdmiMessage(username, message) {
+    console.log(message, "message");
+    const newMessage = { title: message }
+
+    let building = await controller.readOne({
         neighbors: {
             $elemMatch: {
                 userName: username
             }
         }
     });
+    console.log("building");
+    let user;
+    building.neighbors.forEach((neighbor) => { neighbor.userName == username ? user = neighbor : null });
+    console.log(user.isResponsible);
+    if (user.isResponsible) {
+        building.generalMessages.push(newMessage);
+        building.save();
+    }
+    else {
+        throw { code: 401, message: "you are not responsible for this building" }
+    }}
 
-    building.neighbors.forEach((neighbor) => {
-        if (neighbor.userName === username) {
-            deleteMessagesArray.forEach((messageId) => {
-                neighbor.messages = neighbor.messages.filter((message) => message._id != messageId);
+    async function deleteMessages(deleteMessagesArray, username) {
+        ;
+        const building = await controller.readOne({
+            neighbors: {
+                $elemMatch: {
+                    userName: username
+                }
+            }
+        });
 
-            });
-        }
-    })
-    building.save();
+        building.neighbors.forEach((neighbor) => {
+            if (neighbor.userName === username) {
+                deleteMessagesArray.forEach((messageId) => {
+                    neighbor.messages = neighbor.messages.filter((message) => message._id != messageId);
 
-}
+                });
+            }
+        })
+        building.save();
 
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 
 
-module.exports = { getBuilding, addNeighborMessage, deleteMessages }
+
+
+
+
+
+
+
+
+
+
+
+
+    module.exports = { getBuilding, addNeighborMessage, addAdmiMessage, deleteMessages }

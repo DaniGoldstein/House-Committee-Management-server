@@ -10,8 +10,8 @@ router.get('/neighborsDetails', authToken, async (req, res) => {
     const { username } = req;
     console.log(username);
     try {
-        let result = await service.getBuilding(username,res);
-        
+        let result = await service.getBuilding(username, res);
+
         res.send(result)
     }
 
@@ -30,19 +30,26 @@ router.post('/neighborMessage', authToken, async (req, res) => {
         res.send(result);
     }
     catch (err) {
-        
+
         res.status(err?.code ?? 404).send(err?.message)
     };
 
 })
 
-router.post('adminMessage', authToken, async (req, res) => {
-    console.log(...req.body, req.username, "serviceAdminMessage");
-//     const { title } = req.body;
-//     try{
-//         let result=awit service.addAdminMessage( title);
-//     }
-// 
+router.post('/adminMessage', authToken, async (req, res) => {
+    console.log(req.username, "serviceAdminMessage");
+    const { title } = req.body;
+
+    try {
+        console.log(title);
+        await service.addAdmiMessage(req.username, title);
+    }
+    catch (err) {
+        console.log("in catch");
+        res.status(err?.code ?? 404).send(err?.message)
+    };
+
+    res.sendStatus(201);
 }
 );
 
