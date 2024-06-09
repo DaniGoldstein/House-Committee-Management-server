@@ -36,6 +36,18 @@ router.post('/neighborMessage', authToken, async (req, res) => {
 
 })
 
+router.post('adminMessage', authToken, async (req, res) => {
+    console.log(...req.body, req.username, "serviceAdminMessage");
+//     const { title } = req.body;
+//     try{
+//         let result=awit service.addAdminMessage( title);
+//     }
+// 
+}
+);
+
+
+
 router.delete('/deleteMessages/:username', authToken, async (req, res) => {
     const deletesArray = req.body.messagesId;
     console.log(deletesArray);
