@@ -98,54 +98,52 @@ async function addNeighborMessage(username, message) {
 
 
 async function addAdminMessage(username, message) {
+    console.log(message, "message");
+    const newMessage = { title: message }
 
-let newMessage = { title: message}
-
-    const building = await controller.readOne({
-        neighbors: {
-            $elemMatch: {
-                userName: username
-            }
-        }
-    })
-
-    console.log(building.generalMessages);
-    let adminUser;
-    building.neighbors.forEach((neighbor) => {
-        neighbor.userName == username ? adminUser = neighbor : null;
-    })
-
-    adminUser.isResponsible ? console.log(building.generalMessages) : console.log("false");
-    if (!adminUser.isResponsible) throw { code: 401, message: "not Administrators" }
-    else { building.generalMessages.push(newMessage); }
-    console.log(building.generalMessages);
-    building.save();
-
-
-}
-
-async function deleteMessages(deleteMessagesArray, username) {
-    ;
-    const building = await controller.readOne({
+    let building = await controller.readOne({
         neighbors: {
             $elemMatch: {
                 userName: username
             }
         }
     });
+    console.log("building");
+    let user;
+    building.neighbors.forEach((neighbor) => { neighbor.userName == username ? user = neighbor : null });
+    console.log(user.isResponsible);
+    if (!user.isResponsible) {
 
-    building.neighbors.forEach((neighbor) => {
-        if (neighbor.userName === username) {
-            deleteMessagesArray.forEach((messageId) => {
-                neighbor.messages = neighbor.messages.filter((message) => message._id != messageId);
+        throw { code: 401, message: "you are not responsible for this building" }
+    }
 
-            });
-        }
-    })
-    building.save();
-
+        building.generalMessages.push(newMessage);
+         building.save();
+       
+    
 }
 
+    async function deleteMessages(deleteMessagesArray, username) {
+        ;
+        const building = await controller.readOne({
+            neighbors: {
+                $elemMatch: {
+                    userName: username
+                }
+            }
+        });
+
+        building.neighbors.forEach((neighbor) => {
+            if (neighbor.userName === username) {
+                deleteMessagesArray.forEach((messageId) => {
+                    neighbor.messages = neighbor.messages.filter((message) => message._id != messageId);
+
+                });
+            }
+        })
+        building.save();
+
+    }
 
 
 
@@ -161,4 +159,5 @@ async function deleteMessages(deleteMessagesArray, username) {
 
 
 
-module.exports = { getBuilding, addNeighborMessage, deleteMessages, addAdminMessage }
+
+    module.exports = { getBuilding, addNeighborMessage, addAdminMessage, deleteMessages }
