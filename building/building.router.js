@@ -42,8 +42,8 @@ router.post('/adminMessage', authToken, async (req, res) => {
 
     try {
         console.log(title);
-        await service.addAdminMessage(req.username, title);
-       res.sendStatus(201);
+       let result= await service.addAdminMessage(req.username, title);
+       res.send(result).status(201);
 
     }
     catch (err) {
@@ -59,11 +59,14 @@ router.post('/adminMessage', authToken, async (req, res) => {
 router.delete('/deleteMessages/:username', authToken, async (req, res) => {
     const deletesArray = req.body.messagesId;
     console.log(deletesArray);
+    let result;
     try {
-        let result = await service.deleteMessages(deletesArray, req.username);
+         result = await service.deleteMessages(deletesArray, req.username);
     }
     catch (err) { res.status(err?.code ?? 404).send(err?.message) }
-    res.send("1234");
+
+    console.log(result,"result deletes");
+    res.send(result);
 })
 
 

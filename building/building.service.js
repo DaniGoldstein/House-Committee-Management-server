@@ -142,6 +142,7 @@ async function addAdminMessage(username, message) {
             }
         })
         building.save();
+        return building.neighbors
 
     }
 
