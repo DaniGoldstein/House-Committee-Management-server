@@ -117,34 +117,64 @@ async function addAdminMessage(username, message) {
         throw { code: 401, message: "you are not responsible for this building" }
     }
 
-        building.generalMessages.push(newMessage);
-         building.save();
-       
-    
+    building.generalMessages.push(newMessage);
+    building.save();
+
+
 }
 
-    async function deleteMessages(deleteMessagesArray, username) {
-        ;
-        const building = await controller.readOne({
-            neighbors: {
-                $elemMatch: {
-                    userName: username
-                }
+async function deleteMessages(deleteMessagesArray, username) {
+    ;
+    const building = await controller.readOne({
+        neighbors: {
+            $elemMatch: {
+                userName: username
             }
-        });
+        }
+    });
 
-        building.neighbors.forEach((neighbor) => {
-            if (neighbor.userName === username) {
-                deleteMessagesArray.forEach((messageId) => {
-                    neighbor.messages = neighbor.messages.filter((message) => message._id != messageId);
+    building.neighbors.forEach((neighbor) => {
+        if (neighbor.userName === username) {
+            deleteMessagesArray.forEach((messageId) => {
+                neighbor.messages = neighbor.messages.filter((message) => message._id != messageId);
 
-                });
+            });
+        }
+    })
+    building.save();
+    return building.neighbors
+
+}
+
+async function deleteAdminMessages(deleteMessagesArray, username) {
+    console.log(deleteMessagesArray, username);
+    const building = await controller.readOne({
+        neighbors: {
+            $elemMatch: {
+                userName: username
             }
-        })
-        building.save();
-        return building.neighbors
+        }
+    });
+    console.log(building.generalMessages);
+    let user;
+    building.neighbors.forEach((neighbor) => { neighbor.userName == username ? user = neighbor : null });
+    console.log(user.isResponsible);
+    if (!user.isResponsible) {
 
+        throw { code: 401, message: "you are not responsible for this building" }
     }
+    else {
+        deleteMessagesArray.forEach((messageId) => {
+            building.generalMessages = building.generalMessages.filter((message) => message._id != messageId);
+
+        })
+    }
+    building.save();
+    
+    console.log(building.generalMessages, "general messages");
+
+    return building.generalMessages;
+}
 
 
 
@@ -161,4 +191,4 @@ async function addAdminMessage(username, message) {
 
 
 
-    module.exports = { getBuilding, addNeighborMessage, addAdminMessage, deleteMessages }
+module.exports = { getBuilding, addNeighborMessage, addAdminMessage, deleteMessages, deleteAdminMessages }

@@ -71,6 +71,21 @@ router.delete('/deleteMessages/:username', authToken, async (req, res) => {
 
 
 
+router.delete('/deleteAdminMessages', authToken, async (req, res) => {
+    const deletesArray = req.body.messagesId;
+    console.log(deletesArray);
+    let result;
+    try {
+         result = await service.deleteAdminMessages(deletesArray, req.username);
+    }
+    catch (err) { res.status(err?.code ?? 404).send(err?.message) }
+
+    console.log(result,"result AdminDeletes");
+    res.send(result).status(200);
+})
+
+
+
 
 
 
